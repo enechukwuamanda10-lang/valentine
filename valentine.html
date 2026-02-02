@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Click for a surprise! 🎉</title>
+
+  <!-- Open Graph tags for link previews -->
+  <meta property="og:title" content="Click for a surprise! 🎉">
+  <meta property="og:description" content="Click for a surprise!">
+  <meta property="og:image" content="https://enechukwuamanda10-lang.github.io/valentine/yay.png">
+  <meta property="og:type" content="website">
+
+  <style>
+    body {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #ffe6eb;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    h1 {
+      color: #d6336c;
+      font-size: 2.5rem;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      margin: 20px;
+    }
+
+    #yes {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #no {
+      background-color: #adb5bd;
+      color: white;
+      position: absolute;
+      transition: left 0.3s ease, top 0.3s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Will you be my Valentine? 🎉</h1>
+    <button id="yes" onclick="yesClicked()">Yes 💖</button>
+    <button id="no">No 💔</button>
+  </div>
+
+  <script>
+    const noButton = document.getElementById("no");
+
+    // Move No button on hover (desktop) and tap/click (mobile)
+    noButton.addEventListener("mouseover", moveButton);
+    noButton.addEventListener("touchstart", moveButton);
+    noButton.addEventListener("click", moveButton);
+
+    function moveButton() {
+      const x = Math.random() * (window.innerWidth - noButton.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noButton.offsetHeight);
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    }
+
+    function yesClicked() {
+      document.body.innerHTML = `
+        <div style="text-align:center;">
+          <h1 style="color:#d6336c;">YAY!!! 🥰<br>You're my Valentine 💘</h1>
+          <img src="yay.png" style="width:300px; margin-top:20px; border-radius:20px;">
+          <div id="confetti"></div>
+        </div>
+      `;
+
+      // Simple confetti animation
+      for(let i=0;i<100;i++){
+        const conf = document.createElement("div");
+        conf.style.position="absolute";
+        conf.style.width="10px";
+        conf.style.height="10px";
+        conf.style.backgroundColor=["#ff4d6d","#ffb3c1","#ffd6e0"][Math.floor(Math.random()*3)];
+        conf.style.left=Math.random()*window.innerWidth+"px";
+        conf.style.top=Math.random()*window.innerHeight+"px";
+        conf.style.borderRadius="50%";
+        conf.style.opacity="0.8";
+        conf.style.animation=`fall ${2+Math.random()*2}s linear forwards`;
+        document.body.appendChild(conf);
+      }
+
+      const style = document.createElement("style");
+      style.innerHTML=`@keyframes fall {to {transform:translateY(100vh); opacity:0;}}`;
+      document.head.appendChild(style);
+    }
+  </script>
+
+</body>
+</html>
